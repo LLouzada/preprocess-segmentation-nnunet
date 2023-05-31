@@ -1,4 +1,3 @@
-import os
 import glob
 import cv2 as cv
 import numpy as np
@@ -6,22 +5,18 @@ import pydicom as dicom
 from PIL import Image
 import shutil
 
-# Ambiente
-os.chdir('HCFMRP_sacroiliitis_v1')
+import variables as var
+
+
 
 # Process the segmentated images into masks
 def maskPreprocess(path):
-    type = ""
-    if(path == "./SPAIR/"):
-        type = "SPAIR"
-        print("\n" + type)
-    else:
-        type = "STIR"
-        print("\n" + type)
+    type = "SPAIR" if path == var.path_spair else "STIR"
+    print("\n" + type)
 
-    # Iterate through all masks in the directory (SPAIR or STIR)
+    # Iterate through all segmentated images in the directory (png files)
     for index, filename in enumerate(glob.iglob(path + '**/*.png', recursive=True)):
-        if not filename.endswith('_mask.png'):
+        if not filename.endswith('_mask.png') and not filename.endswith('_processed.png'):
             print("\n file name: " + filename)
             print("index: " + str(index))
 

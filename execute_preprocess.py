@@ -1,7 +1,7 @@
 import mask_preprocess
+import variables as var
 
-path_spair = "./SPAIR/"
-path_stir = "./STIR/" 
 
-mask_preprocess.maskPreprocess(path_spair)
-mask_preprocess.maskPreprocess(path_stir)
+
+mask_preprocess.maskPreprocess(var.path_spair)
+mask_preprocess.maskPreprocess(var.path_stir)
