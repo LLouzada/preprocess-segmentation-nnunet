@@ -8,12 +8,12 @@ import os
 from tqdm import tqdm
 import time
 
-import src.variables as var
+import src.constants as cons
 
 
 # Process the dicom images into png files
-def dicomPreprocess(path):
-    type = "SPAIR" if path == var.path_spair else "STIR"
+def dicom_to_png(path):
+    type = "SPAIR" if path == cons.path_spair else "STIR"
     print("\n ### " + type)
 
     # Get all filenames into a list to iterate with tqdm
@@ -23,9 +23,10 @@ def dicomPreprocess(path):
 
     processed_count = 0
     not_processed_count = 0
+    removed_count = 0
 
     # Iterate through all dicom images in the directory
-    for index, filename in enumerate(tqdm(all_files, desc=f"Processing DICOM images",
+    for index, filename in enumerate(tqdm(all_files, desc=f"Converting {type} DICOM images to png",
                                           bar_format='{l_bar}{bar} [ elapsed time: {elapsed}, left: {remaining} ]')):
         img = dicom.dcmread(filename)
         try:
@@ -36,6 +37,14 @@ def dicomPreprocess(path):
         except AttributeError:
             print(f"The file {filename} does not have one of the expected attributes. Skipping this file.")
             not_processed_count += 1
+            
+            # Check if a corresponding mask file exists and delete it
+            mask_filename = filename.replace('.dcm', '_mask.png')
+            if os.path.exists(mask_filename):
+                os.remove(mask_filename)
+                removed_count += 1
+                print(f"Removed {mask_filename} mask file")
+                
             continue
         rows = img.Rows
         columns = img.Columns
@@ -60,9 +69,13 @@ def dicomPreprocess(path):
         processed_count += 1
         
     elapsed_time = time.time() - start_time
+    # convert seconds to hours, minutes and seconds
+    elapsed_time = time.strftime("%H:%M:%S", time.gmtime(elapsed_time))
 
-    print(f"\nTotal: {processed_count} ' + type + ' DICOM images processed")
-    print(f"Not processed (atribute error): {not_processed_count} ' + type + ' DICOM images")
+    print(f"\nTotal: {processed_count} {type} DICOM images processed")
+    print(f"Not processed (attribute error): {not_processed_count} {type} DICOM images")
+    print(f"Removed {removed_count} {type} masks")
     print(f"Time elapsed: {elapsed_time} seconds")
+
 
         

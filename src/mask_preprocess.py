@@ -7,13 +7,13 @@ import shutil
 from tqdm import tqdm
 import time
 
-import src.variables as var
+import src.constants as cons
 
 
 
 # Process the segmentated images into masks
-def maskPreprocess(path):
-    type = "SPAIR" if path == var.path_spair else "STIR"
+def mask_preprocess(path):
+    type = "SPAIR" if path == cons.path_spair else "STIR"
     print("\n ### " + type)
     
     # Get all filenames into a list to iterate with tqdm
@@ -44,6 +44,8 @@ def maskPreprocess(path):
             processed_count += 1
             
     elapsed_time = time.time() - start_time
+    # convert seconds to hours, minutes and seconds
+    elapsed_time = time.strftime("%H:%M:%S", time.gmtime(elapsed_time))
 
     print("\nTotal: " + str(processed_count) + " " + type + " masks processed") 
     print(f"Time elapsed: {elapsed_time} seconds")
