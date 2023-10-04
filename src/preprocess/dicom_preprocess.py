@@ -1,21 +1,17 @@
 import glob
-import cv2 as cv
-import numpy as np
 import pydicom as dicom
 from PIL import Image
-import shutil
 import os
 from tqdm import tqdm
 import time
 
 import src.constants as cons
 
-
 # Process the dicom images into png files
 def dicom_to_png(path):
     type = "SPAIR" if path == cons.path_spair else "STIR"
     print("\n ### " + type)
-
+ 
     # Get all filenames into a list to iterate with tqdm
     all_files = list(glob.iglob(path + '**/*.dcm', recursive=True))
     
@@ -76,6 +72,5 @@ def dicom_to_png(path):
     print(f"Not processed (attribute error): {not_processed_count} {type} DICOM images")
     print(f"Removed {removed_count} {type} masks")
     print(f"Time elapsed: {elapsed_time} seconds")
-
 
         

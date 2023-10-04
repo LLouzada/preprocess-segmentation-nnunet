@@ -42,7 +42,7 @@ def check_sizes(path, type):
     print(f" - Bigger: {bigger}")
     print(f" - Same: {same} \n")
 
-def check_pair(path, type):
+def check_pair_unsplited(path, type):
     type1 = "_processed.png" if type == "image" else "_mask.png"
     type2 = "_mask.png" if type == "image" else "_processed.png"
     path_type = "SPAIR" if path == cons.path_spair else "STIR"
@@ -67,5 +67,6 @@ def check_pair(path, type):
     print(f" - Pair: {pair}")
     print(f" - No pair: {no_pair}\n")
     # print(no_pair_list)
+
 
     

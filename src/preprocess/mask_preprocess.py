@@ -1,15 +1,10 @@
 import glob
 import cv2 as cv
 import numpy as np
-import pydicom as dicom
-from PIL import Image
-import shutil
 from tqdm import tqdm
 import time
 
 import src.constants as cons
-
-
 
 # Process the segmentated images into masks
 def mask_preprocess(path):
