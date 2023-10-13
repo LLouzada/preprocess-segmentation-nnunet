@@ -26,7 +26,7 @@ def resize_stir(type):
         img = cv.imread(filename)
 
         # Resize the image
-        img = cv.resize(img, (cons.default_size, cons.default_size), interpolation=cv.INTER_AREA)
+        img = cv.resize(img, (cons.default_image_size, cons.default_image_size), interpolation=cv.INTER_AREA)
 
         # Save the image
         output_filename = filename.replace(resize_type, resize_type.replace(".png", "_resized.png"))
@@ -61,16 +61,16 @@ def resize_spair(rtype):
         img = Image.open(filename)
         # print("image name: " + str(filename) + "\n" + str(img.size))
 
-        if img.size[0] > cons.default_size or img.size[1] > cons.default_size:
+        if img.size[0] > cons.default_image_size or img.size[1] > cons.default_image_size:
             continue  # Pular a iteração se a imagem for maior do que a dimensão padrão
 
-        if(img.size < (cons.default_size, cons.default_size)):
-            output = Image.new("L", (cons.default_size, cons.default_size))
-            for i in range(cons.default_size):
-                for j in range(cons.default_size):
+        if(img.size < (cons.default_image_size, cons.default_image_size)):
+            output = Image.new("L", (cons.default_image_size, cons.default_image_size))
+            for i in range(cons.default_image_size):
+                for j in range(cons.default_image_size):
                     output.putpixel((i, j), 0)
         
-        padding = int((cons.default_size - img.size[0]) / 2)
+        padding = int((cons.default_image_size - img.size[0]) / 2)
         x = img.size[0]
         y = img.size[1]
 

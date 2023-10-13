@@ -1,7 +1,7 @@
 import argparse
 from src.preprocess.mask_preprocess import mask_preprocess
 from src.preprocess.dicom_preprocess import dicom_to_png
-from src.preprocess.check_result_preprocess import check_sizes, check_pair_unsplited, check_augmented_pair
+from src.preprocess.check_result_preprocess import check_sizes, check_pair_unsplited
 from src.preprocess.resize import resize_stir, resize_spair
 import src.constants as cons
 

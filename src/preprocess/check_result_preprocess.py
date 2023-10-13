@@ -37,7 +37,7 @@ def check_sizes(path, type):
         elif(int(widht) > 384):
             bigger += 1
     
-    print(f"\n{print_type} {path_type} - defaut size: {cons.default_size} x {cons.default_size}")
+    print(f"\n{print_type} {path_type} - defaut size: {cons.default_image_size} x {cons.default_image_size}")
     print(f" - Smaller: {smaller}")
     print(f" - Bigger: {bigger}")
     print(f" - Same: {same} \n")
