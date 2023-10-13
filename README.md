@@ -13,10 +13,20 @@
 - O código deste repositório esta otimizado para uso com a base de dados *HCFMRP_sacroiliitis_v1*, a qual foi
 anteriormente estruturada e anonimizada para uso público, com aprovação do Comitê de Ética em Pesquisa do Hospital das Clínicas de Ribeirão Preto (CEP-HCRP), sob parecer número 1.951.052.
 
-## Licença
-
-- Este projeto está sob a licença [MIT](https://opensource.org/licenses/MIT)
-
-## Autores
+### Autor
 
 - Lucas de A. Louzada - [LLouzada](https://github.com/LLouzada)
+
+### Orientador
+
+- Prof. Dr. Paulo Mazzoncini de Azevedo Marques
+
+### Links
+
+- Repositório original do nnU-NET: [nnU-Net](https://github.com/MIC-DKFZ/nnUNet)
+
+- Repositório fork do nnU-NET utilizado no projeto: [nnU-Net](https://github.com/LLouzada/nnUNet)
+
+### Licença
+
+- Este projeto está sob a licença [MIT](https://opensource.org/licenses/MIT)
