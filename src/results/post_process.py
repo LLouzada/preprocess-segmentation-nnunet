@@ -1,6 +1,6 @@
 from PIL import Image, ImageEnhance
 
-def aumentar_brilho(imagem_path, fator):
+def change_intensity(imagem_path, fator):
     # Abre a imagem
     img = Image.open(imagem_path)
     

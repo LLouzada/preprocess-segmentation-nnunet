@@ -7,7 +7,7 @@ import src.constants as cons
 import numpy as np
 import matplotlib.pyplot as plt
 
-def visualize_all(n="5", is_overlay=False, is_shuffle=True):
+def visualize_all(n="5", is_shuffle=True):
     dir_name = cons.RESULT_DIR
     path = os.path.join(dir_name, 'result002', 'imagesTs', '*.png')
     img_files = glob.glob(path)
@@ -98,7 +98,9 @@ def replace_last_0000(s):
 
 
 
-def overlay_with_bounding_box(dir_name, n=5, is_overlay=False, result=2, is_shuffle=True):
+def overlay_with_bounding_box(n=5, is_overlay=True, is_shuffle=True):
+    result=2
+    dir_name = cons.RESULT_DIR
     path = os.path.join(dir_name, 'result00' + str(result), 'imagesTs', '*.png')
     img_files = glob.glob(path)
     if not img_files:
@@ -172,7 +174,9 @@ def overlay_with_bounding_box(dir_name, n=5, is_overlay=False, result=2, is_shuf
             cv2.destroyAllWindows()
 
 
-def overlay_with_bounding_box_specific(dir_name, image_num, is_overlay=False, result=2, is_shuffle=True):
+def overlay_with_bounding_box_specific(image_num, is_overlay=True, is_shuffle=True):
+    result=2
+    dir_name = cons.RESULT_DIR
     path = os.path.join(dir_name, 'result00' + str(result), 'imagesTs', '*' + str(image_num) +'_0000.png')
     img_files = glob.glob(path)
     if not img_files:
@@ -244,3 +248,88 @@ def overlay_with_bounding_box_specific(dir_name, image_num, is_overlay=False, re
             cv2.imshow(img_files[i].split('/')[-1], overlay)
             cv2.waitKey(0)
             cv2.destroyAllWindows()
+
+def visualize_all_specific(image_num, is_shuffle=False):
+    assert int(image_num) >= 0 and image_num <= 113, "Invalid image number"
+
+    dir_name = cons.RESULT_DIR
+    path = os.path.join(dir_name, 'result002' , 'imagesTs', '*' + str(image_num) +'_0000.png')
+    img_files = glob.glob(path)
+    if not img_files:
+        print(f"No images found in {dir_name}.")
+        return
+    if is_shuffle:
+        shuffle(img_files)
+
+    og_mask_files = [replace_last_0000(img.replace('imagesTs', 'labelsTs')) for img in img_files]
+    if not og_mask_files:
+        print(f"No og masks found in {dir_name}.")
+        return
+    
+    predicted_mask_files = [replace_last_0000(img.replace('imagesTs', 'result2')) for img in img_files]
+    if not predicted_mask_files:
+        print(f"No predicted masks found in {dir_name}.")
+        return
+    
+    pp_predicted_mask_files = [replace_last_0000(img.replace('imagesTs', 'result2_pp')) for img in img_files]
+    if not pp_predicted_mask_files:
+        print(f"No post-processed predicted masks found in {dir_name}.")
+        return
+    
+    image_dataset = []
+    og_mask_dataset = []
+    predicted_mask_dataset = []
+    pp_predicted_mask_dataset = []
+
+    for img, og_mask, predicted_mask, pp_predicted_mask in zip(img_files, og_mask_files, predicted_mask_files, pp_predicted_mask_files):
+        img_arr = cv2.imread(img, cv2.IMREAD_GRAYSCALE)
+        mask_arr = cv2.imread(og_mask, cv2.IMREAD_GRAYSCALE)
+        predicted_mask_arr = cv2.imread(predicted_mask, cv2.IMREAD_GRAYSCALE)
+        pp_predicted_mask_arr = cv2.imread(pp_predicted_mask, cv2.IMREAD_GRAYSCALE)
+
+        image_dataset.append(img_arr)
+        og_mask_dataset.append(mask_arr)
+        predicted_mask_dataset.append(predicted_mask_arr)
+        pp_predicted_mask_dataset.append(pp_predicted_mask_arr)
+
+    image_dataset = np.array(image_dataset)
+    og_mask_dataset = np.array(og_mask_dataset)
+    predicted_mask_dataset = np.array(predicted_mask_dataset)
+    pp_predicted_mask_dataset = np.array(pp_predicted_mask_dataset)
+
+    print("Image name: ", img_files[0])
+    print("Mask name: ", og_mask_files[0])
+    print("Predicted mask name: ", predicted_mask_files[0])
+    print("Post-processed predicted mask name: ", pp_predicted_mask_files[0])
+    print("Image directory: ", dir_name)
+    print("Shape of image dataset: ", image_dataset.shape)
+    print("Shape of mask dataset: ", og_mask_dataset.shape)
+    print("Shape of predicted mask dataset: ", predicted_mask_dataset.shape)
+    print("Shape of post-processed predicted mask dataset: ", pp_predicted_mask_dataset.shape)
+    print()
+
+    for i in range(min(1, len(image_dataset))):
+        fig, axes = plt.subplots(1, 4, figsize=(20, 5))
+        
+        # Image
+        axes[0].imshow(image_dataset[i], cmap='gray')
+        axes[0].set_title('Image ' + img_files[i].split('/')[-1].split('.')[0])
+        
+        # Original Mask
+        axes[1].imshow(og_mask_dataset[i], cmap='gray')
+        axes[1].set_title('Original Mask')
+        
+        # Predicted Mask
+        axes[2].imshow(predicted_mask_dataset[i], cmap='gray')
+        axes[2].set_title('Predicted Mask')
+        
+        # Post-Processed Predicted Mask
+        axes[3].imshow(pp_predicted_mask_dataset[i], cmap='gray')
+        axes[3].set_title('PP Predicted Mask')
+        
+        # Maximize the figure window
+        manager = plt.get_current_fig_manager()
+        manager.window.showMaximized()
+        # Show the plot
+        plt.tight_layout()
+        plt.show()
