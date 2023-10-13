@@ -8,7 +8,7 @@
 
 - Específicamente, o repositório faz todo o pré processamento das imagens e máscaras, juntamente com o aumento da base de dados através do uso da biblioteca albumentenations. Além disso, o repositório contém o código para análise dos resultados obtidos.
 
-- O treinamento foi realizado em um Google Colab, utilizando-se do ambiente de execução com GPU. [Link para o notebook](https://colab.research.google.com/drive/138njb6bvCkxIeRqZCvoWbAUSy7Y8kGMn#scrollTo=ithmLWO-hylC)
+- O treinamento foi realizado em um Google Colab, utilizando-se do ambiente de execução com GPU. [Link para o notebook](https://github.com/LLouzada/tcc/blob/master/nnunet_tcc.ipynb)
 
 - O código deste repositório esta otimizado para uso com a base de dados *HCFMRP_sacroiliitis_v1*, a qual foi
 anteriormente estruturada e anonimizada para uso público, com aprovação do Comitê de Ética em Pesquisa do Hospital das Clínicas de Ribeirão Preto (CEP-HCRP), sob parecer número 1.951.052.
