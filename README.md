@@ -10,7 +10,9 @@ Especificamente, o repositório abrange o pré-processamento das imagens e másc
 
 Este repositório foi configurado para trabalhar com a base de dados pública *HCFMRP_sacroiliitis_v1*, que foi previamente estruturada e anonimizada para uso em pesquisas, contando com a aprovação do Comitê de Ética em Pesquisa do Hospital das Clínicas de Ribeirão Preto (CEP-HCRP), sob parecer número 1.951.052.
 
-- **Notebook do treinamento**: [nnunet_tcc.ipynb](https://github.com/LLouzada/tcc/blob/master/nnunet_tcc.ipynb)
+- **Notebook do treinamento - git**: [nnunet_tcc.ipynb - git](https://github.com/LLouzada/tcc/blob/master/nnunet_tcc.ipynb)
+
+- **Notebook do treinamento - colab**: [nnunet_tcc.ipynb - colab](https://colab.research.google.com/drive/138njb6bvCkxIeRqZCvoWbAUSy7Y8kGMn?usp=sharing)
 
 ## Autor
 
